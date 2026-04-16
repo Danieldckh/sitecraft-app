@@ -8,13 +8,13 @@ RUN apk add --no-cache openssl
 
 COPY package.json package-lock.json ./
 COPY prisma ./prisma
-RUN npm ci --legacy-peer-deps
+RUN npm ci --legacy-peer-deps --ignore-scripts
+RUN npx prisma generate
 
 COPY public ./public
 COPY src ./src
 COPY next.config.ts tailwind.config.ts tsconfig.json next-env.d.ts postcss.config.mjs ./
 
-RUN npx prisma generate
 RUN npm run build
 
 ENV NODE_ENV=production
