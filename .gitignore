@@ -1,0 +1,11 @@
+node_modules
+.next
+out
+.env
+.env.local
+*.log
+public/uploads
+.deploy-keys
+.playwright-mcp
+tsconfig.tsbuildinfo
+*.png
