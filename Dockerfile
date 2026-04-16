@@ -8,8 +8,8 @@ RUN apk add --no-cache openssl
 
 COPY package.json package-lock.json ./
 COPY prisma ./prisma
-RUN npm ci --legacy-peer-deps --ignore-scripts
-RUN npx prisma generate
+RUN npm ci --legacy-peer-deps --ignore-scripts --include=dev
+RUN ./node_modules/.bin/prisma generate
 
 COPY public ./public
 COPY src ./src
@@ -22,4 +22,4 @@ ENV NODE_ENV=production
 EXPOSE 3000
 
 # Ensure the SQLite schema exists before the app starts serving traffic.
-CMD ["sh", "-c", "npx prisma db push && npm run start"]
+CMD ["sh", "-c", "./node_modules/.bin/prisma db push --skip-generate && npm run start"]
